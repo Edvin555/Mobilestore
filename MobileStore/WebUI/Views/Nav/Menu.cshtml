@@ -1,0 +1,34 @@
+﻿@model IEnumerable<string>
+
+<div class="row">
+    <div class="col-xs-10">
+
+        <form class="navbar-form navbar-left" role="search" action="/Mobile/List">
+            
+            <div class="form-group">
+                <input name="SearchString" type="text" class="form-control" placeholder="Search" required>
+            </div>
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+
+        </form>
+</div>
+</div>
+
+
+    @foreach (var link in Model)
+    {
+        @Html.RouteLink(link, new
+{
+    controller = "Mobile",
+    action = "List",
+    brand = link,
+    page = 1
+},
+    new
+    {
+        @class = ""
+            + (link == ViewBag.SelectedGenre ? "btn btn-block  btn-lg btn-primary" : "btn btn-block btn-default btn-lg")
+    }
+
+
+)}

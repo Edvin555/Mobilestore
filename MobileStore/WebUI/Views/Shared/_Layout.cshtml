@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="~/Scripts/jquery-2.2.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Content/site.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+    <script>
+        $(document).ready(function () {
+
+
+            $(window).unload(function () {
+
+                $.ajax({
+                    url: "/Cart/SaveCartToDataBase",
+                    async: false,
+                    type: 'GET',
+                    data: {
+                        
+                    }
+                });
+
+
+            })
+        })
+    </script>
+</head>
+<body>
+
+    <div class="navbar navbar-inverse" role="navigation">
+        <a class="navbar-brand" href="/Mobile/List">Mobile Store</a>
+    </div>
+
+    <div class="row panel">
+        <div id="genres" class="col-xs-3">
+            @Html.Action("Menu", "Nav")
+
+        </div>
+        <div class="col-xs-8">
+            @RenderBody()
+
+        </div>
+    </div>
+
+   
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+﻿@using WebUI.Models
+@model  MobileListViewModel
+
+@{
+    ViewBag.Title = "Books";
+}
+
+
+@foreach (var item in Model.MobilePhones) {
+
+    @Html.Partial("MobileSummary", item)
+}
+
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new  {page = x, brand = Model.CurrentBrand}))
+</div>
+
+

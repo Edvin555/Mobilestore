@@ -1,0 +1,102 @@
+﻿@model WebUI.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "Book Store : Your Cart";
+}
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+      
+        $("#buybutton").click(function () {
+             $("#buylbl").show();
+            
+        })
+
+    })
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Total</th>
+
+        </tr>
+       
+    </thead>
+    <tbody>
+
+        @foreach (var line in Model.CartLines)
+        {
+            <tr>
+                <td>@line.Line.Quantity</td>
+                <td>@line.Phone.Name </td>
+                <td>@line.Phone.Price.ToString("# euro")</td>
+
+                <td>@((line.Line.Quantity * line.Phone.Price).ToString("# euro"))</td>
+                <td>
+                    <div class="pull-right" style="margin-left:10px">
+                        <button type="button" class="btn btn-info  btn-danger" data-toggle="modal" data-target="#myModal">Buy</button>
+                    </div>
+
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Enter your address</h4>
+                                </div>
+
+                                
+                                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                                    {
+                                      <div class="modal-body">
+                                        <div>
+                                            <input type="hidden" name="MobilePhoneId" value="@line.Phone.MobilePhoneId" />
+                                            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                            @Html.TextBox("address", "", new {required = "required" })
+                                            <input type="submit" class="btn btn-success" id="buybutton" value="Buy" />
+
+                                            <label style="display:none;" id="buylbl"><strong>Pirchase confirmed</strong></label>
+                                        </div>
+                                      </div>
+                                        
+                                       
+                                    }
+                               
+                             </div>
+
+                        </div>
+                    </div>
+
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                    
+                    <div class="pull-right">
+                        <input type="hidden" name="MobilePhoneId" value="@line.Phone.MobilePhoneId" />
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" class="btn btn-success" value="Remove from cart" />
+                    </div>
+                    }
+
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="4" >Total:</td>
+            <td>@Model.TotalValue.ToString("# euro")</td>
+        </tr>
+    </tfoot>
+</table>
+
+<div>
+    <a class="btn btn primary" href="@Model.ReturnUrl">Continue shopping</a>
+</div>
+
