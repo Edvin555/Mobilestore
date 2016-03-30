@@ -8,9 +8,23 @@
 <script>
     $(document).ready(function () {
       
-        $("#buybutton").click(function () {
-             $("#buylbl").show();
+        $("form").submit(function () {
+           
+             $(".buylbl").show();
             
+        })
+
+        $("#buyOneBut").click(function () {
+           
+            $("#buyOne").show();
+            $("#buyAll").hide();
+
+        })
+        $("#buyAllBut").click(function () {
+
+            $("#buyAll").show();
+            $("#buyOne").hide();
+
         })
 
     })
@@ -39,7 +53,7 @@
                 <td>@((line.Line.Quantity * line.Phone.Price).ToString("# euro"))</td>
                 <td>
                     <div class="pull-right" style="margin-left:10px">
-                        <button type="button" class="btn btn-info  btn-danger" data-toggle="modal" data-target="#myModal">Buy</button>
+                        <button id="buyOneBut" type="button" class="btn btn-info  btn-danger" data-toggle="modal" data-target="#myModal">Buy</button>
                     </div>
 
                     <div id="myModal" class="modal fade" role="dialog">
@@ -52,22 +66,43 @@
                                     <h4 class="modal-title">Enter your address</h4>
                                 </div>
 
-                                
+                                <div id="buyOne" style="display:none">
                                     @using (Html.BeginForm("RemoveFromCart", "Cart"))
                                     {
-                                      <div class="modal-body">
-                                        <div>
-                                            <input type="hidden" name="MobilePhoneId" value="@line.Phone.MobilePhoneId" />
-                                            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                                            @Html.TextBox("address", "", new {required = "required" })
-                                            <input type="submit" class="btn btn-success" id="buybutton" value="Buy" />
+                                        <div class="modal-body">
+                                            <div>
+                                                <input type="hidden" name="MobilePhoneId" value="@line.Phone.MobilePhoneId" />
+                                                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                                @Html.TextBox("address", "", new { required = "required" })
+                                                <input type="submit" class="btn btn-success buybutton"  value="Buy" />
 
-                                            <label style="display:none;" id="buylbl"><strong>Pirchase confirmed</strong></label>
+                                                <label style="display:none;" class="buylbl"><strong>Pirchase confirmed</strong></label>
+                                            </div>
                                         </div>
-                                      </div>
-                                        
-                                       
+
+
                                     }
+
+                                </div>
+                                <div id="buyAll" style="display:none">
+                                    @using (Html.BeginForm("BuyAll", "Cart"))
+                                    {
+                                        <div class="modal-body">
+                                            <div>
+                                                
+                                                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                                @Html.TextBox("address", "", new { required = "required" })
+                                                <input type="submit" class="btn btn-success buybutton"  value="Buy" />
+
+                                                <label style="display:none;" class="buylbl"><strong>Pirchase confirmed</strong></label>
+                                            </div>
+                                        </div>
+
+
+                                    }
+
+                                </div>
+                             
                                
                              </div>
 
@@ -90,8 +125,13 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="4" >Total:</td>
+            <td colspan="3" >Total:</td>
             <td>@Model.TotalValue.ToString("# euro")</td>
+            <td>
+                <div class="pull-right" style="margin-left:10px">
+                    <button id ="buyAllBut"type="button" class="btn btn-info  btn-primary" data-toggle="modal" data-target="#myModal">Buy All</button>
+                </div>
+            </td>
         </tr>
     </tfoot>
 </table>

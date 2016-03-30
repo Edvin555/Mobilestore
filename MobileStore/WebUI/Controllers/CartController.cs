@@ -28,7 +28,7 @@ namespace WebUI.Controllers
             {
                 if (db.Carts.Count() > 0 )
                 {
-                    cart = db.Carts.Where(c => c.UserIp == Request.UserHostAddress).FirstOrDefault();
+                    cart = db.Carts.Include("CartLines").Where(c => c.UserIp == Request.UserHostAddress).FirstOrDefault();
                     cart.CartLines = new List<CartLine>();
                     cart.CartLines.AddRange(db.CartLines.Where(l => l.CartId == cart.CartId).ToList());
                  
@@ -50,7 +50,7 @@ namespace WebUI.Controllers
         public ViewResult Index(string returnUrl)
         {
                    
-            var cart = GetCart();
+            Cart cart = GetCart();
             var cartLines = new List<CartLineView> ();
             decimal total = 0;
             foreach(var line in cart.CartLines)
@@ -90,6 +90,14 @@ namespace WebUI.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
         }
+
+        public RedirectToRouteResult BuyAll( string returnUrl)
+        {
+            Cart cart = GetCart();
+            cart.Clear();         
+            return RedirectToAction("Index", new { returnUrl });
+        }
+
         [HttpGet]
         public void SaveCartToDataBase()
         {

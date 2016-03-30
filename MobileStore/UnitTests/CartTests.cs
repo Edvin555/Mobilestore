@@ -17,6 +17,7 @@ namespace UnitTests
             MobilePhone m2 = new MobilePhone { MobilePhoneId = 2, Name = "b2" };
 
             Cart cart = new Cart();
+            cart.CartLines = new List<CartLine>();
             cart.AddItem(m1, 1);
             cart.AddItem(m2, 1);
 
@@ -34,6 +35,7 @@ namespace UnitTests
             MobilePhone m2 = new MobilePhone { MobilePhoneId = 2, Name = "b2" };
 
             Cart cart = new Cart();
+            cart.CartLines = new List<CartLine>();
             cart.AddItem(m1, 1);
             cart.AddItem(m2, 1);
             cart.AddItem(m1, 5);
@@ -53,6 +55,7 @@ namespace UnitTests
             MobilePhone m2 = new MobilePhone { MobilePhoneId = 2, Name = "b2" };
 
             Cart cart = new Cart();
+            cart.CartLines = new List<CartLine>();
             cart.AddItem(m1, 1);
             cart.AddItem(m2, 6);
             

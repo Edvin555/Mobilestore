@@ -13,7 +13,7 @@ namespace WebUI.Models
         [Key]
         public int CartId { get; set; }
         public string UserIp { get; set; }
-        public List<CartLine> CartLines = new List<CartLine>();
+        public List<CartLine> CartLines { get; set; }
         
         public void AddItem(MobilePhone mobile, int quantity)
         {
