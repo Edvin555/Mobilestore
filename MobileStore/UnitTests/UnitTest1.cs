@@ -19,21 +19,23 @@ namespace UnitTests
             Mock<IMobileRepository> mock = new Mock<IMobileRepository>();
             mock.Setup(m => m.MobilePhones).Returns(new List<MobilePhone>
             {
-                new MobilePhone {MobilePhoneId = 1, Name = "b1"},
-                new MobilePhone {MobilePhoneId = 2, Name = "b2"},
-                new MobilePhone {MobilePhoneId = 3, Name = "b3"},
-                new MobilePhone {MobilePhoneId = 4, Name = "b4"},
-                new MobilePhone {MobilePhoneId = 5, Name = "b5"},
+                new MobilePhone {MobilePhoneId = 1, Name = "b1 "},
+                new MobilePhone {MobilePhoneId = 2, Name = "b2 "},
+                new MobilePhone {MobilePhoneId = 3, Name = "b3 "},
+                new MobilePhone {MobilePhoneId = 4, Name = "b4 "},
+                new MobilePhone {MobilePhoneId = 5, Name = "b5 "},
             });
 
             MobileController controller = new MobileController(mock.Object);
-            controller.pageSize = 3;
-            MobileListViewModel result = (MobileListViewModel)controller.List(null," ",2).Model;
 
-            List<MobilePhone> books = result.MobilePhones.ToList();
-            Assert.IsTrue(books.Count == 2);
-            Assert.AreEqual(books[0].Name, "b4");
-            Assert.AreEqual(books[1].Name, "b5");
+            controller.pageSize = 3;
+            MobileListViewModel result = (MobileListViewModel)controller.List(null,"b",2).Model;
+
+            List<MobilePhone> phones = result.MobilePhones.ToList();
+
+            Assert.IsTrue(phones.Count == 2);
+            Assert.AreEqual(phones[0].Name, "b4 ");
+            Assert.AreEqual(phones[1].Name, "b5 ");
 
         }
 
@@ -53,7 +55,8 @@ namespace UnitTests
             MobileController controller = new MobileController(mock.Object);
             controller.pageSize = 3;
 
-            MobileListViewModel result = (MobileListViewModel)controller.List(null, " ", 2).Model;
+            MobileListViewModel result = (MobileListViewModel)controller.List(null, "b", 2).Model;
+
             PageInfo pagingInfo = result.PageInfo;
             Assert.AreEqual(pagingInfo.CurrentPage, 2);
             Assert.AreEqual(pagingInfo.ItemsPerPage, 3);

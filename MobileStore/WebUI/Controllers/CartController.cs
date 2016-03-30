@@ -28,10 +28,10 @@ namespace WebUI.Controllers
             {
                 if (db.Carts.Count() > 0 )
                 {
-                    cart = db.Carts.Include("CartLines").Where(c => c.UserIp == Request.UserHostAddress).FirstOrDefault();
+                    cart = db.Carts.Where(c => c.UserIp == Request.UserHostAddress).FirstOrDefault();
                     cart.CartLines = new List<CartLine>();
                     cart.CartLines.AddRange(db.CartLines.Where(l => l.CartId == cart.CartId).ToList());
-                   // cart.CartLines.ForEach(l => l.MobilePhone = repository.MobilePhones.FirstOrDefault(b => b.MobilePhoneId == l.MobilePhoneId));
+                 
                     Session["Cart"] = cart;
 
                 }

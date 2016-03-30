@@ -13,7 +13,7 @@ namespace WebUI.Models
         [Key]
         public int CartId { get; set; }
         public string UserIp { get; set; }
-        public List<CartLine> CartLines { get; set; }
+        public List<CartLine> CartLines = new List<CartLine>();
         
         public void AddItem(MobilePhone mobile, int quantity)
         {
@@ -36,11 +36,7 @@ namespace WebUI.Models
             CartLines.RemoveAll(l => l.MobilePhoneId == mobile.MobilePhoneId);
         }
 
-       /* public decimal ComputeTotalValue()
-        {
-            return CartLines.Sum(l => l.MobilePhone.Price * l.Quantity);
-        }
-         */
+      
         public void Clear()
         {
             CartLines.Clear();
