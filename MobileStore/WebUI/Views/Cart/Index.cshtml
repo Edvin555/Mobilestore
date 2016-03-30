@@ -1,7 +1,7 @@
 ﻿@model WebUI.Models.CartIndexViewModel
 
 @{
-    ViewBag.Title = "Book Store : Your Cart";
+    ViewBag.Title = "Mobile Store : Your Cart";
 }
 <script src="~/Scripts/jquery-2.2.1.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -10,26 +10,15 @@
       
         $("form").submit(function () {
            
-             $(".buylbl").show();
-            
+             $(".buylbl").show();           
         })
 
-        $("#buyOneBut").click(function () {
-           
-            $("#buyOne").show();
-            $("#buyAll").hide();
-
-        })
-        $("#buyAllBut").click(function () {
-
-            $("#buyAll").show();
-            $("#buyOne").hide();
-
-        })
+        if ($("#count").text() == "0")
+            $("#buyAllBut").hide();
 
     })
 </script>
-
+<label id="count" style="display:none">@Model.CartLines.Count()</label>
 <table class="table">
     <thead>
         <tr>
@@ -37,9 +26,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>Total</th>
-
-        </tr>
-       
+        </tr>       
     </thead>
     <tbody>
 
@@ -53,59 +40,34 @@
                 <td>@((line.Line.Quantity * line.Phone.Price).ToString("# euro"))</td>
                 <td>
                     <div class="pull-right" style="margin-left:10px">
-                        <button id="buyOneBut" type="button" class="btn btn-info  btn-danger" data-toggle="modal" data-target="#myModal">Buy</button>
+                        <button  type="button" class="btn btn-info  btn-danger" data-toggle="modal" data-target="#@line.Phone.MobilePhoneId">Buy</button>
                     </div>
 
-                    <div id="myModal" class="modal fade" role="dialog">
+                    <div id="@line.Phone.MobilePhoneId" class="modal fade" role="dialog">
                         <div class="modal-dialog">
-
-
                             <div class="modal-content">
+
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">Enter your address</h4>
                                 </div>
 
-                                <div id="buyOne" style="display:none">
-                                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
-                                    {
-                                        <div class="modal-body">
+                                <div class="modal-body">
+                                    
+                                        @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                                        {
                                             <div>
                                                 <input type="hidden" name="MobilePhoneId" value="@line.Phone.MobilePhoneId" />
                                                 @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
                                                 @Html.TextBox("address", "", new { required = "required" })
-                                                <input type="submit" class="btn btn-success buybutton"  value="Buy" />
+                                                <input type="submit" class="btn btn-success" value="Buy" />
 
                                                 <label style="display:none;" class="buylbl"><strong>Pirchase confirmed</strong></label>
                                             </div>
-                                        </div>
-
-
-                                    }
-
+                                        }
+                                    
                                 </div>
-                                <div id="buyAll" style="display:none">
-                                    @using (Html.BeginForm("BuyAll", "Cart"))
-                                    {
-                                        <div class="modal-body">
-                                            <div>
-                                                
-                                                @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
-                                                @Html.TextBox("address", "", new { required = "required" })
-                                                <input type="submit" class="btn btn-success buybutton"  value="Buy" />
-
-                                                <label style="display:none;" class="buylbl"><strong>Pirchase confirmed</strong></label>
-                                            </div>
-                                        </div>
-
-
-                                    }
-
-                                </div>
-                             
-                               
-                             </div>
-
+                            </div>
                         </div>
                     </div>
 
@@ -129,8 +91,39 @@
             <td>@Model.TotalValue.ToString("# euro")</td>
             <td>
                 <div class="pull-right" style="margin-left:10px">
-                    <button id ="buyAllBut"type="button" class="btn btn-info  btn-primary" data-toggle="modal" data-target="#myModal">Buy All</button>
+                    <button id ="buyAllBut" type="button" class="btn btn-info  btn-primary" data-toggle="modal" data-target="#myModal">Buy All</button>
                 </div>
+
+
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Enter your address</h4>
+                            </div>
+
+                            <div class="modal-body">
+                              @using (Html.BeginForm("BuyAll", "Cart"))
+                                    {
+                                        <div>
+
+                                            @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                            @Html.TextBox("address", "", new { required = "required" })
+                                            <input type="submit" class="btn btn-success" value="Buy" />
+
+                                            <label style="display:none;" class="buylbl"><strong>Pirchase confirmed</strong></label>
+                                        </div>
+
+                                    }
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </td>
         </tr>
     </tfoot>
