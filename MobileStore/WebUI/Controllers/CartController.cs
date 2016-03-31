@@ -101,7 +101,7 @@ namespace WebUI.Controllers
         [HttpGet]
         public void SaveCartToDataBase()
         {
-            Cart cart = (Cart) Session["Cart"];
+          /*  Cart cart = (Cart) Session["Cart"];
             
             if (cart != null)
             {
@@ -118,7 +118,7 @@ namespace WebUI.Controllers
               
                db.SaveChanges();
                                                                 
-            } 
+            }  */
         }
 	}
 }

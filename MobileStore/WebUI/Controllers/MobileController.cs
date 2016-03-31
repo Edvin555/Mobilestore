@@ -49,7 +49,7 @@ namespace WebUI.Controllers
         {
             var now = DateTime.Now;
 
-            double diff = 25;
+            double diff = 45;
             var lastUpdate = db.UpdateDates.FirstOrDefault();
 
             if (lastUpdate != null)
@@ -57,7 +57,7 @@ namespace WebUI.Controllers
                 diff = ((TimeSpan)(now - lastUpdate.Date)).TotalHours;
             }
 
-            if (diff > 24)
+            if (diff > 44)
             {
                 var newUpdate = new UpdateDate() { Date = now };
                 if (lastUpdate != null) db.UpdateDates.Remove(lastUpdate);
