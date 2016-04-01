@@ -106,3 +106,4 @@ C:\Users\User\Desktop\github\Mobilestore\MobileStore\WebUI\obj\Debug\WebUI.Migra
 C:\Users\User\Desktop\github\Mobilestore\MobileStore\WebUI\obj\Debug\WebUI.csproj.GenerateResource.Cache
 C:\Users\User\Desktop\github\Mobilestore\MobileStore\WebUI\obj\Debug\WebUI.dll
 C:\Users\User\Desktop\github\Mobilestore\MobileStore\WebUI\obj\Debug\WebUI.pdb
+C:\Users\User\Desktop\github\Mobilestore\MobileStore\WebUI\obj\Debug\WebUI.Migrations.update2.resources

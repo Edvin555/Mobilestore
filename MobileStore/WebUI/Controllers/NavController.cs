@@ -19,14 +19,14 @@ namespace WebUI.Controllers
         }
         //
         // GET: /Nav/
-        public PartialViewResult Menu(string genre = null)
+        public PartialViewResult Menu(string brand = null)
         {
-            ViewBag.SelectedGenre = genre;
-            IEnumerable<string> genres = repository.MobilePhones
+            ViewBag.SelectedBrand = brand;
+            IEnumerable<string> brands = repository.MobilePhones
                                          .Select(b => b.Name.Split(new char[]{' '})[0])
                                          .Distinct()
                                          .OrderBy(x => x);
-            return PartialView(genres);
+            return PartialView(brands);
         }
 	}
 }
