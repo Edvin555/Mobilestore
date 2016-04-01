@@ -30,7 +30,7 @@ namespace WebUI
             routes.MapRoute(
                    name: null,
                    url: "{brand}",
-                   defaults: new { controller = "Mobile", action = "List", page = 1 }
+                   defaults: new { controller = "Mobile", action = "List"}
               );
 
             routes.MapRoute(

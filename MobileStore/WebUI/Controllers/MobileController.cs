@@ -14,13 +14,13 @@ namespace WebUI.Controllers
     {
         private IMobileRepository repository;
         private EFDbContext db = new EFDbContext();
-        public int pageSize = 28 ;
+        public int pageSize = 24 ;
         public MobileController(IMobileRepository repo)
         {
             repository = repo;
         }
         
-        public ViewResult List(string brand, string SearchString = " ", int page = 1)
+        public ViewResult List(string brand = null, string SearchString = " ", int page = 1 )
         {
             UpdateDatabase();
 

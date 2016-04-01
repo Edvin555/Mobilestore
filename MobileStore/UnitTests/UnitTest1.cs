@@ -26,16 +26,16 @@ namespace UnitTests
                 new MobilePhone {MobilePhoneId = 5, Name = "b5 "},
             });
 
-            MobileController controller = new MobileController(mock.Object);
+           MobileController controller = new MobileController(mock.Object);
 
-            controller.pageSize = 3;
-            MobileListViewModel result = (MobileListViewModel)controller.List(null,"b",2).Model;
+           controller.pageSize = 3;
+           MobileListViewModel result = (MobileListViewModel)controller.List(null,"b",2).Model;
 
-            List<MobilePhone> phones = result.MobilePhones.ToList();
+           List<MobilePhone> phones = result.MobilePhones.ToList();
 
-            Assert.IsTrue(phones.Count == 2);
-            Assert.AreEqual(phones[0].Name, "b4 ");
-            Assert.AreEqual(phones[1].Name, "b5 ");
+           Assert.IsTrue(phones.Count == 2);
+           Assert.AreEqual(phones[0].Name, "b4 ");
+           Assert.AreEqual(phones[1].Name, "b5 ");
 
         }
 
