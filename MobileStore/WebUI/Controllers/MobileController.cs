@@ -23,7 +23,7 @@ namespace WebUI.Controllers
         public ViewResult List(string brand = null, string SearchString = " ", int page = 1 )
         {
             UpdateDatabase();
-
+            ViewBag.Search = SearchString;
             MobileListViewModel model = new MobileListViewModel
             {
                 MobilePhones = repository.MobilePhones.Where(b => brand == null || b.Name.Split(new char[] { ' ' })[0] == brand )

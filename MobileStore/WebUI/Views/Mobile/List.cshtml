@@ -12,7 +12,7 @@
 }
 
 <div class="btn-group pull-right">
-    @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new  {page = x, brand = Model.CurrentBrand}))
+    @Html.PageLinks(Model.PageInfo, x => Url.Action("List", new { page = x, SearchString = (string)ViewBag.Search , brand = Model.CurrentBrand }))
 </div>
 
 
