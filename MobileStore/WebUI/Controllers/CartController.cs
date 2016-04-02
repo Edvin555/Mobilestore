@@ -91,11 +91,31 @@ namespace WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult BuyAll( string returnUrl)
+        public ActionResult Buy(int MobilePhoneId = 0, string returnUrl = "")
         {
+                    
             Cart cart = GetCart();
-            cart.Clear();         
-            return RedirectToAction("Index", new { returnUrl });
+            List<CartLineView> orders = new List<CartLineView>();
+            decimal total = 0;
+            var phone = new MobilePhone();
+            foreach (var line in (MobilePhoneId == 0 ? cart.CartLines : cart.CartLines.Where(m => m.MobilePhoneId == MobilePhoneId)))
+            {
+                phone = db.MobilePhones.Where(m => m.MobilePhoneId == line.MobilePhoneId).FirstOrDefault();
+                CartLineView lineView = new CartLineView() { Phone = phone, Line = line };
+                orders.Add(lineView);
+                total += phone.Price * line.Quantity;
+            }
+
+            if (MobilePhoneId == 0) cart.Clear();
+            else cart.RemoveLine(phone);
+
+            return View(new CartIndexViewModel
+            {
+                CartLines = orders,
+                TotalValue = total,
+                ReturnUrl = returnUrl
+
+            });
         }
 
         [HttpGet]

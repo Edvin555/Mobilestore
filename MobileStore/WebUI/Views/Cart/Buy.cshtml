@@ -1,0 +1,54 @@
+﻿@model WebUI.Models.CartIndexViewModel
+
+@{
+    ViewBag.Title = "Mobile Store : Your Orders";
+}
+<h2>Congratulations! You have ordered:</h2>
+<script src="~/Scripts/jquery-2.2.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+       
+
+    })
+</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Quantity</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var line in Model.CartLines)
+        {
+            <tr>
+                <td>@line.Line.Quantity</td>
+                <td>@line.Phone.Name </td>
+                <td>@line.Phone.Price.ToString("# euro")</td>
+
+                <td>@((line.Line.Quantity * line.Phone.Price).ToString("# euro"))</td>
+      
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">Total:</td>
+            <td>@Model.TotalValue.ToString("# euro")</td>
+ 
+        </tr>
+    </tfoot>
+</table>
+
+<div>
+    <a class="btn btn primary" href="@Model.ReturnUrl">Continue shopping</a>
+</div>
+
+
+

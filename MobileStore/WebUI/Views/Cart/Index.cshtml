@@ -54,15 +54,16 @@
 
                                 <div class="modal-body">
                                     
-                                        @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                                        @using (Html.BeginForm("Buy", "Cart"))
                                         {
                                             <div>
                                                 <input type="hidden" name="MobilePhoneId" value="@line.Phone.MobilePhoneId" />
                                                 @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                                                
                                                 @Html.TextBox("address", "", new { required = "required" })
                                                 <input type="submit" class="btn btn-success" value="Buy" />
 
-                                                <label style="display:none;" class="buylbl"><strong>Pirchase confirmed</strong></label>
+                                                <label style="display:none;" class="buylbl"><strong>Purchase confirmed</strong></label>
                                             </div>
                                         }
                                     
@@ -105,7 +106,7 @@
                             </div>
 
                             <div class="modal-body">
-                              @using (Html.BeginForm("BuyAll", "Cart"))
+                              @using (Html.BeginForm("Buy", "Cart"))
                                     {
                                         <div>
 
@@ -113,7 +114,7 @@
                                             @Html.TextBox("address", "", new { required = "required" })
                                             <input type="submit" class="btn btn-success" value="Buy" />
 
-                                            <label style="display:none;" class="buylbl"><strong>Pirchase confirmed</strong></label>
+                                            <label style="display:none;" class="buylbl"><strong>Purchase confirmed</strong></label>
                                         </div>
 
                                     }

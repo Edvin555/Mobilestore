@@ -193,6 +193,7 @@
     <Content Include="Views\AdminCart\Details.cshtml" />
     <Content Include="Views\AdminCart\Edit.cshtml" />
     <Content Include="Views\AdminCart\Index.cshtml" />
+    <Content Include="Views\Cart\Buy.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
