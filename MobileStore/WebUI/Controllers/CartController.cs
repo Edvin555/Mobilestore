@@ -91,9 +91,20 @@ namespace WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public ActionResult Buy(int MobilePhoneId = 0, string returnUrl = "")
+        public ActionResult Buy(string address, int MobilePhoneId = 0, string returnUrl = "")
         {
-                    
+            if (address.Trim() == "") 
+            {
+               ViewBag.Error = "Purchase failed, because you have entered empty address.";
+               
+               return View(new CartIndexViewModel
+               {
+                   CartLines = new List<CartLineView>(),
+                   TotalValue = 0,
+                   ReturnUrl = returnUrl
+
+               });
+            }
             Cart cart = GetCart();
             List<CartLineView> orders = new List<CartLineView>();
             decimal total = 0;
