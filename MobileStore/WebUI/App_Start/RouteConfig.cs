@@ -16,7 +16,7 @@ namespace WebUI
             routes.MapRoute(
              name: null,
              url: "",
-             defaults: new { controller = "Mobile", action = "List", page = 1 }
+             defaults: new { controller = "Mobile", action = "List", page = 1, brand = (string)null }
          );
 
 

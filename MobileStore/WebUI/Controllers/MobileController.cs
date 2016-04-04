@@ -20,7 +20,7 @@ namespace WebUI.Controllers
             repository = repo;
         }
         
-        public ViewResult List(string brand = null, string SearchString = " ", int page = 1 )
+        public ViewResult List(string brand , string SearchString = " ", int page = 1 )
         {
             UpdateDatabase();
             ViewBag.Search = SearchString;
